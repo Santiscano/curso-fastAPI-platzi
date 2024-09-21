@@ -22,6 +22,10 @@ $ pip install fastapi
 $ pip install -r requirements.txt
 # instalar un nuevo modulo
 $ pip install sqlalchemy
+# actualizar requirements.txt
+$ pip freeze > requirements.txt # es necesario estar dentro del venv
+# desactivar el entorno virtual
+$ deactivate
 ```
 
 4. Arrancar app.
