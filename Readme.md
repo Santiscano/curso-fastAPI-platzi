@@ -32,3 +32,46 @@ $ deactivate
 ```shell
 $ fastapi dev main.py --reload
 ```
+
+5. Despliegue en un Droplet o VPS
+```shell
+# actualizar e instalar herramientas necesarias
+$ apt update
+$ apt -y upgrade
+$ apt install git
+$ apt install nginx
+$ apt install nodejs
+$ apt install npm
+$ apt install pm2@latest -g
+$ apt install python3-venv
+# crear entorno virtual
+$ python3 -m venv venv
+# activar entorno virtual
+$ source venv/bin/activate
+# instalar dependencias
+$ pip install -r requirements.txt # -r es leer el archivo requirements.txt
+```
+
+6. Correr en servidor con Nginx
+```shell
+$ pm2 start "fastapi dev main.py --reload" --name my-api-fastapi
+# configurar nginx
+$ nano /etc/nginx/sites-available/my-api-fastapi
+```
+
+```.config
+server {
+    listen 80;
+    server_name 142.42.124.79;
+
+    location / {
+        proxy_pass http://127.0.0.1:5000;
+    }
+}
+```
+```shell
+# despues de crear el archivo hay que ejecutar el siguiente comando
+$ sudo ln -s /etc/nginx/sites-available/my-api-fastapi /etc/nginx/sites-enabled/
+# reiniciar nginx
+$ sudo systemctl restart ngin
+```

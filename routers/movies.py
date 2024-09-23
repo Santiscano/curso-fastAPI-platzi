@@ -19,7 +19,8 @@ def get_movies() -> List[Movie]:
 
 
 @movie_router.get('/movies/{id}', tags=['movies'], response_model=Movie)
-def get_movie(id: int = Path(ge=1, le=2000)) -> Movie: # param id in path
+def get_movie(id: int = Path(ge=1, le=2000), q: str = None) -> Movie: # param id in path
+    # la q serian los query parameters
     db = Session()
     # result = db.query(MovieModel).filter(MovieModel.id == id).first()
     result = MovieServices(db).get_movie(id)
